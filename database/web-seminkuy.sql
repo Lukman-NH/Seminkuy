@@ -30,7 +30,8 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `created_at`, `deleted_at`, `updated_at`) VALUES
-(1,	'Design',	'design',	'2022-06-19 04:03:25',	NULL,	'2022-06-19 04:03:39');
+(1,	'Design',	'design',	'2022-06-19 04:03:25',	NULL,	'2022-06-19 04:03:39'),
+(2,	'Health',	'health',	'2022-06-22 12:53:21',	NULL,	'2022-06-22 12:57:15');
 
 DROP TABLE IF EXISTS `events`;
 CREATE TABLE `events` (
@@ -48,7 +49,8 @@ CREATE TABLE `events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `events` (`id`, `categories_id`, `name`, `pembicara`, `harga`, `deskripsi`, `deleted_at`, `created_at`, `updated_at`, `slug`) VALUES
-(1,	1,	'UI/UX Design',	'Ahmad Fauzi',	25000,	'<p>--</p>',	NULL,	'2022-06-19 04:04:41',	'2022-06-19 04:04:41',	'uiux-design');
+(1,	1,	'UI/UX Design',	'Ahmad Fauzi',	25000,	'<p>Kegiatan Webinar Desain Grafis dengan tema &ldquo;UI/UX Designl&rdquo; telah diselenggarakan oleh Seninkuy. Kegiatan Webinar Desain Grafis ini dilaksanakan pada hari Sabtu, 30&nbsp;Februaru 1512&nbsp;melalui media Zoom dan YouTube.</p>',	NULL,	'2022-06-19 04:04:41',	'2022-06-22 11:15:19',	'uiux-design'),
+(2,	2,	'Mental Health',	'Yusuf Cahyaho',	30000,	'<p>deskripsi</p>',	NULL,	'2022-06-22 12:53:53',	'2022-06-22 12:57:32',	'mental-health');
 
 DROP TABLE IF EXISTS `event_galleries`;
 CREATE TABLE `event_galleries` (
@@ -61,7 +63,8 @@ CREATE TABLE `event_galleries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `event_galleries` (`id`, `photos`, `events_id`, `created_at`, `updated_at`) VALUES
-(1,	'assets/event/ue98r2EsYuobjbtvWB1jHykfmqZv36wOiXtT3Bhd.png',	1,	'2022-06-19 04:23:27',	'2022-06-19 04:23:27');
+(1,	'assets/event/ue98r2EsYuobjbtvWB1jHykfmqZv36wOiXtT3Bhd.png',	1,	'2022-06-19 04:23:27',	'2022-06-19 04:23:27'),
+(3,	'assets/event/PTjoFnAaBk1fWN984QJQtHc0fekXWoW3KTmrwPpO.png',	2,	'2022-06-22 12:54:59',	'2022-06-22 12:54:59');
 
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
@@ -95,7 +98,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9,	'2021_11_12_145930_add_kode_to_transaction_details_table',	2),
 (10,	'2021_11_12_150324_add_slug_to_event_table',	3),
 (11,	'2021_11_12_151100_add_roles_field_to_users_table',	3),
-(12,	'2022_06_19_103638_create_event_galleries_table',	4);
+(12,	'2022_06_19_103638_create_event_galleries_table',	4),
+(13,	'2022_06_22_160724_create_ratings_table',	5);
 
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
@@ -105,6 +109,21 @@ CREATE TABLE `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE `ratings` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `events_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `ratings` (`id`, `users_id`, `events_id`, `rating`, `created_at`, `updated_at`) VALUES
+(1,	1,	1,	4,	'2022-06-24 01:17:13',	'2022-06-24 01:33:55'),
+(2,	2,	1,	5,	'2022-06-24 02:23:13',	'2022-06-24 02:33:58');
 
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
@@ -120,7 +139,8 @@ CREATE TABLE `transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `transactions` (`id`, `users_id`, `total_harga`, `status`, `deleted_at`, `created_at`, `updated_at`, `kode`) VALUES
-(1,	1,	25000,	'CANCELED',	NULL,	'2022-06-20 02:35:13',	'2022-06-20 02:36:55',	'SEMINKUY-7907');
+(1,	1,	25000,	'PENDING',	NULL,	'2022-06-24 01:08:15',	'2022-06-24 01:08:15',	'SEMINKUY-61'),
+(2,	2,	25000,	'PENDING',	NULL,	'2022-06-24 02:22:56',	'2022-06-24 02:22:56',	'SEMINKUY-364');
 
 DROP TABLE IF EXISTS `transaction_details`;
 CREATE TABLE `transaction_details` (
@@ -135,8 +155,8 @@ CREATE TABLE `transaction_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `transaction_details` (`id`, `transactions_id`, `events_id`, `harga`, `created_at`, `updated_at`, `kode`) VALUES
-(1,	2,	1,	25000,	'2022-06-19 04:07:48',	'2022-06-19 04:07:48',	'TRX-8500'),
-(2,	1,	1,	25000,	'2022-06-20 02:35:13',	'2022-06-20 02:35:13',	'TRX-4534');
+(1,	1,	1,	25000,	'2022-06-24 01:08:15',	'2022-06-24 01:08:15',	'TRX-9161'),
+(2,	2,	1,	25000,	'2022-06-24 02:22:56',	'2022-06-24 02:22:56',	'TRX-1545');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -156,6 +176,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `phone`, `deleted_at`, `remember_token`, `created_at`, `updated_at`, `roles`) VALUES
-(1,	'adminseminkuy',	'adminseminkuy@gmail.com',	NULL,	'$2y$10$TPJ9TAG5LmwpAFyCcn/FnOea.ocAcU4etWHGPMKpyk4.2QKm7Fdua',	'087748333522',	NULL,	NULL,	'2022-06-19 03:54:27',	'2022-06-19 04:00:18',	'ADMIN');
+(1,	'adminseminkuy',	'adminseminkuy@gmail.com',	NULL,	'$2y$10$TPJ9TAG5LmwpAFyCcn/FnOea.ocAcU4etWHGPMKpyk4.2QKm7Fdua',	'087748333522',	NULL,	NULL,	'2022-06-19 03:54:27',	'2022-06-19 04:00:18',	'ADMIN'),
+(2,	'Ahmad Alamsyah',	'alamsyah@gmail.com',	NULL,	'$2y$10$5Xs2QlEFtLtVb.k.7UqQ5OjPPAFc2S63zJ2qI4T7SrxbafNMjWcmm',	'081234567891',	NULL,	NULL,	'2022-06-22 12:42:57',	'2022-06-22 12:43:59',	'USER');
 
--- 2022-06-20 09:56:50
+-- 2022-06-24 11:47:40

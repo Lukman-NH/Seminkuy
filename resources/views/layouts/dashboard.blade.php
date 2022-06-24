@@ -12,12 +12,12 @@
     <title>@yield('title')</title>
 
     @stack('prepend-style')
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="{{ url ('/style/main.css')}}" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/802ad392d1.js"></script>
     @stack('addon-style')
 
   </head>
-
   <body>
     <div class="page-dashboard">
       <div class="d-flex" id="wrapper" data-aos="fade-right">

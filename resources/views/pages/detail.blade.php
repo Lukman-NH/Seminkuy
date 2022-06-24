@@ -70,6 +70,21 @@
               <h1>{{ $event->name }} </h1>
               <div class="pembicara">Pembicara : {{ $event->pembicara }} </div>
               <div class="price">Rp. {{ $event->harga }}</div>
+              <div class="rating">
+                <span>
+                  @if($rating_value > 0) 
+                    <b>{{$rating_value}}</b>
+                  @else
+                    <b>No Rating</b>
+                  @endif
+                </span>
+                  @for($i=1; $i<=$rating_value; $i++)
+                    <i class="fa fa-star checked"></i>
+                  @endfor          
+                <span>                  
+                    <i>({{$event_rating->count()}} Participant)</i>
+                </span>   
+              </div>  
             </div>
             <div class="col-lg-2" data-aos="zoom-in">
               @auth
@@ -99,6 +114,38 @@
           <div class="row">
             <div class="col-12 col-lg-8">
               {!! $event->deskripsi !!}
+            </div>
+          </div>
+          <div class="col-12 col-md-8"> 
+            <hr/>
+          </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <span>
+                    <i>Partipant Rating : </i>
+                  </span>        
+                </div>
+                <div class="col-md-6">
+                  @foreach($rating_review as $item)
+                    <div class="user-review">
+                      <label for="">{{ $item->user->name }}</label>
+                      <br>
+                      @if ($item)
+                      @php $user_rated = $item-> rating @endphp
+                        @for($i=1; $i<=$user_rated; $i++)
+                          <i class="fa fa-star checked"></i>
+                        @endfor
+                        @for($j=$user_rated+1; $j<=5; $j++)
+                          <i class="fa fa-star"></i> 
+                        @endfor   
+                      @endif     
+                    </div>
+                    <br>
+                  @endforeach
+                </div>
+                <div class="col-12 col-md-8"> 
+                  <hr/>
+                </div>
             </div>
           </div>
         </div>

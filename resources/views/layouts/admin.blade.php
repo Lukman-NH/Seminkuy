@@ -32,16 +32,16 @@
               href="{{ route ('admin-dashboard') }}"
               class="list-group-item list-group-item-action"
               >Dashboard</a
-            >
+              >
+            <a
+                href="{{ route('category.index') }}"
+                class="list-group-item list-group-item-action {{ (request()->is('admin/category')) ? 'active' : '' }}"
+                >Categories</a
+              >
             <a
             href="{{ route('event.index') }}"
             class="list-group-item list-group-item-action {{ (request()->is('admin/event')) ? 'active' : '' }} "
               >Events</a
-            >
-            <a
-              href="{{ route('category.index') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin/category')) ? 'active' : '' }}"
-              >Categories</a
             >
             <a
             href="{{ route('event-gallery.index') }}"

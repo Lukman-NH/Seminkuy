@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/cart/{id?}', 'CartController@delete')
         ->name('cart-delete');
 
+    Route::post('/rating', 'RatingController@add')
+        ->name('rating-add');
+
     Route::post('/checkout', 'CheckoutController@process')
         ->name('checkout');
 
