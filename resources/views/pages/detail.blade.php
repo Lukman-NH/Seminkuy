@@ -69,20 +69,23 @@
             <div class="col-lg-8">
               <h1>{{ $event->name }} </h1>
               <div class="pembicara">Pembicara : {{ $event->pembicara }} </div>
-              <div class="price">Rp. {{ $event->harga }}</div>
+              <div class="price">Rp.{{ number_format($event ->harga, 0, ',', '.') }}</div>
+              @php $rate = number_format($rating_value,1); @endphp
               <div class="rating">
                 <span>
-                  @if($rating_value > 0) 
-                    <b>{{$rating_value}}</b>
+                  @if($rate > 0) 
+                    <b>{{$rate}}</b>
                   @else
-                    <b>No Rating</b>
+                    <b>Not Rated</b>
                   @endif
                 </span>
-                  @for($i=1; $i<=$rating_value; $i++)
+                  @for($i=1; $i<=$rate; $i++)
                     <i class="fa fa-star checked"></i>
                   @endfor          
                 <span>                  
+                  @if($event_rating->count() > 0) 
                     <i>({{$event_rating->count()}} Participant)</i>
+                  @endif
                 </span>   
               </div>  
             </div>
@@ -122,7 +125,8 @@
               <div class="row">
                 <div class="col-md-2">
                   <span>
-                    <i>Partipant Rating : </i>
+                    <b>Partipant Rating : </b>
+                    <i>(Latest Rating) </i>
                   </span>        
                 </div>
                 <div class="col-md-6">

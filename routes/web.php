@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Python\PythonController;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +23,8 @@ Route::get('/event', 'EventController@index')
     ->name('event');
 Route::get('/event/{id?}', 'EventController@detail')
     ->name('categories-detail');
+
+    
 Route::get('/detail/{id?}', 'DetailController@index')
     ->name('detail');
 Route::post('/detail/{id?}', 'DetailController@add')
@@ -51,7 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/dashboard/transactions', 'DashboardTransactionController@index')
         ->name('dashboard-transactions');
-    Route::get('/dashboard/transactions/{id?}', 'DashboardTransactionController@details')
+    Route::get('/dashboard/transactions/{id?}', 'DashboardTransactionController@de  tails')
         ->name('dashboard-transactions-details');
     Route::post('/dashboard/transactions/{id?}', 'DashboardTransactionController@update')
         ->name('dashboard-transactions-update');
@@ -60,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('dashboard-setting-account');    
     Route::post('/dashboard/account/{redirect}', 'DashboardSettingController@update')
         ->name('dashboard-setting-redirect');
+
 });
 
 Route::prefix('admin')
@@ -72,6 +78,17 @@ Route::prefix('admin')
         Route::resource('event','EventController');
         Route::resource('event-gallery','EventGalleryController');
         Route::resource('transaction','TransactionController');
+        Route::resource('rating','RatingController');
+    });
+
+// Python Routes
+Route::prefix('python')
+    ->group(function () {
+        Route::get('/', [PythonController::class, 'index'])
+            ->name('python.index');
+
+        Route::get('/export', [PythonController::class, 'export'])
+            ->name('python.export');
     });
 
 

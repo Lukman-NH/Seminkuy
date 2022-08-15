@@ -76,7 +76,7 @@
                                 {{  $event ->name }}
                             </div>
                             <div class="products-price">
-                                Rp.{{  $event ->harga }}
+                                Rp.{{ number_format($event ->harga, 0, ',', '.') }}
                             </div>
                         </a>
                     </div>

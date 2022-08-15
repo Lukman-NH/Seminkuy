@@ -54,7 +54,7 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Nama Event</label>
+                      <label>Nama Pembicara</label>
                       <input type="text" class="form-control" name="pembicara" value="{{ $item->pembicara }}" required />
                     </div>
                   </div>
@@ -75,7 +75,7 @@
                   <div class="col text-right">
                     <button
                       type="submit"
-                      class="btn btn-success px-5"
+                      class="btn btn-primary px-5"
                     >
                       Save Now
                     </button>

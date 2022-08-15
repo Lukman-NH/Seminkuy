@@ -26,4 +26,9 @@ class Event extends Model
     {
         return $this->belongsTo( Category::class, 'categories_id', 'id' );
     }
+
+    public function rating()
+    {
+        return $this->hasOne( Rating::class, 'events_id', 'id' );
+    }
 }

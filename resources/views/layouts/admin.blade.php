@@ -59,6 +59,11 @@
               >Users</a
             >
             <a
+              href="{{ route('rating.index') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('admin/rating')) ? 'active' : '' }} "
+              >Rating</a
+            >
+            <a
               href="{{ route('logout') }}"
               class="list-group-item list-group-item-action"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"">Logout</a>
